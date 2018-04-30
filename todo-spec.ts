@@ -1,17 +1,15 @@
-import { browser, element, by, protractor } from 'protractor';
+import { browser, element, by, protractor, $ } from 'protractor';
 
 import { LoginPage } from './objectPage/loginPage';
-import { BasePage } from './objectPage/basePage';
-//import { start } from 'repl';
 import { CreateSportsman } from './objectPage/CRUD/createSportsman';
 import { PanelPrimary } from './objectPage/CRUD/panelPrimary';
+import { ReadSportsman } from './objectPage/CRUD/readSportsman';
 
 
 const loginPage = new LoginPage();
-const basePage = new BasePage();
 const createSportsman = new CreateSportsman();
 const panelPrimary = new PanelPrimary();
-
+const readSportsman = new ReadSportsman();
 
 const user = {
     login: '',
@@ -19,11 +17,11 @@ const user = {
 }
 
 const newSportsman = {
-    lastName: 'Voloh',
-    firstName: 'Andriy',
-    birth: '01-20-2000',
-    middleName: 'Vitaliyovych',
-    trainer: 'Zidan'
+    lastName: 'opn',
+    firstName: 'onp',
+    birth: '01-20-1998',
+    middleName: 'lo',
+    trainer: 'dan'
 }
 
 
@@ -32,7 +30,7 @@ const baseUrl = startUrl;
 
 describe('testST page', function(){
 
-    it('CRUD',async function(){
+    beforeEach(async () => { 
         await browser.get(startUrl)
     
         expect(await browser.getCurrentUrl()).toEqual(loginPage.loginUrl);
@@ -41,11 +39,19 @@ describe('testST page', function(){
 
         await loginPage.userLogin(user);
         
-        expect(await browser.getCurrentUrl()).toEqual(baseUrl);
+        //expect(await browser.getCurrentUrl()).toEqual(baseUrl);
 
-        //expect(await basePage.areDisplayed()).toEqual(true);
+        expect(await readSportsman.arePresent()).toEqual(true);
 
-        await basePage.addNew.click();
+        await readSportsman.addNew.click();
+    });
+
+    // afterEach(async () => {
+    //     await
+    // });
+
+
+    it('create',async function(){
         
         await createSportsman.chooseOption(createSportsman.selectorsForm)
         await createSportsman.optionSelector(createSportsman.card)
@@ -53,9 +59,23 @@ describe('testST page', function(){
         await createSportsman.userInfo(newSportsman)
     
         await createSportsman.buttonDone.click()
-        
-        //await console.log(panelPrimary.closeIt.isDisplayed())
-        
-        //await panelPrimary.arePrisent(panelPrimary.panels)
+
+        //expect(await panelPrimary.areDisplayed(panelPrimary.panels)).toEqual(true)
+        await browser.sleep(2000)
+        await panelPrimary.closeIt.click()
+
+        await readSportsman.seachSp(newSportsman.lastName)
+        await browser.sleep(2000)
+//         let EC = await protractor.ExpectedConditions;
+// // Waits for an alert pops up.
+//         await browser.wait(EC.alertIsPresent(), 5000);
+
+        //await console.log( await $('tr.ng-scope').getText())
+
     })
+
+    // it('read', async function(){
+    //     //await console.log(await readSportsman.inputSearch.isPresent())
+        
+    // })
 })

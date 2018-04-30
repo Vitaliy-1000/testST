@@ -10,7 +10,20 @@ export class PanelPrimary {
     
     }
 
-    async arePrisent(selector){
-        await console.log(await selector.count())
+    async areDisplayed(selector){
+        let countSel = await selector.count()
+        let i
+        let areElem
+        for (i=0; i < countSel; i++){
+            let get = await selector.get(i).isDisplayed()
+        
+            if (await get != false) {
+                areElem = true
+            } else {
+                return false
+            }
+        }
+        
+        return areElem
     }
 }
