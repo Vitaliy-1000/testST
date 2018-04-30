@@ -26,4 +26,6 @@ export class PanelPrimary {
         
         return areElem
     }
+
+    
 }
