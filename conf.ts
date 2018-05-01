@@ -7,7 +7,8 @@ const config : Config = {
     specs: ['todo-spec.ts'],
 
     SELENIUM_PROMISE_MANAGER: false,
-
+    allScriptsTimeout: 120000,
+    getMultiCapabilities: 60000,
     onPrepare() {
       browser.waitForAngularEnabled(true);
     },

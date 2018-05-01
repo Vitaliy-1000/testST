@@ -4,24 +4,25 @@ import { LoginPage } from './objectPage/loginPage';
 import { CreateSportsman } from './objectPage/CRUD/createSportsman';
 import { PanelPrimary } from './objectPage/CRUD/panelPrimary';
 import { ReadSportsman } from './objectPage/CRUD/readSportsman';
-
+import { UpdateSportsman } from './objectPage/CRUD/updateSportsman';
 
 const loginPage = new LoginPage();
 const createSportsman = new CreateSportsman();
 const panelPrimary = new PanelPrimary();
 const readSportsman = new ReadSportsman();
+const updateSportsman = new UpdateSportsman();
 
 const user = {
-    login: '',
-    password: ''
+    login: 'auto',
+    password: 'test'
 }
 
 const newSportsman = {
-    lastName: 'opn',
-    firstName: 'onp',
+    lastName: 'лрпр',
+    firstName: 'овпов',
     birth: '01-20-1998',
-    middleName: 'lo',
-    trainer: 'dan'
+    middleName: 'впово',
+    //trainer: 'dan'
 }
 
 
@@ -39,43 +40,43 @@ describe('testST page', function(){
 
         await loginPage.userLogin(user);
         
-        //expect(await browser.getCurrentUrl()).toEqual(baseUrl);
+        expect(await browser.getCurrentUrl()).toEqual(baseUrl);
 
         expect(await readSportsman.arePresent()).toEqual(true);
 
-        await readSportsman.addNew.click();
+        
     });
 
     // afterEach(async () => {
     //     await
     // });
 
-
+/*
     it('create',async function(){
+        await readSportsman.addNew.click();
         
         await createSportsman.chooseOption(createSportsman.selectorsForm)
         await createSportsman.optionSelector(createSportsman.card)
-        
         await createSportsman.userInfo(newSportsman)
     
         await createSportsman.buttonDone.click()
 
-        //expect(await panelPrimary.areDisplayed(panelPrimary.panels)).toEqual(true)
-        await browser.sleep(2000)
+        expect(await panelPrimary.areDisplayed(panelPrimary.panels)).toEqual(true)
+        
+        await browser.waitForAngular()
         await panelPrimary.closeIt.click()
+    })
+*/  /*
+    it('read', async function(){
+        await readSportsman.seachSp('орпоа')
 
-        await readSportsman.seachSp(newSportsman.lastName)
-        await browser.sleep(2000)
-//         let EC = await protractor.ExpectedConditions;
-// // Waits for an alert pops up.
-//         await browser.wait(EC.alertIsPresent(), 5000);
-
-        //await console.log( await $('tr.ng-scope').getText())
+        expect(await readSportsman.seachText('орпоа')).toEqual(true)
 
     })
+*/
+    it('update', async function(){
+        await readSportsman.seachSp('орпоа')
 
-    // it('read', async function(){
-    //     //await console.log(await readSportsman.inputSearch.isPresent())
-        
-    // })
+        await updateSportsman.updateSp()
+    })
 })

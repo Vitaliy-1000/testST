@@ -5,7 +5,7 @@ interface newSportsman {
     firstName: string;
     birth: string;
     middleName: string;
-    trainer: string;
+    //trainer: string;
 }
 
 
@@ -15,7 +15,7 @@ export class CreateSportsman {
     firstName: ElementFinder;
     birth: ElementFinder;
     middleName: ElementFinder;
-    trainer: ElementFinder;
+    //trainer: ElementFinder;
 
     selectorsForm: ElementArrayFinder;
     card: ElementFinder;
@@ -26,10 +26,8 @@ export class CreateSportsman {
         this.firstName = $('[placeholder="First name"]')
         this.birth = $('[placeholder="Date of Birth"]')
         this.middleName = $('[placeholder="Middle name"]')
-        this.trainer = $$('[placeholder="Trainer"]').get(0)
-        //this.region = $('.form-control.select-ph.ng-invalid.ng-invalid-required.ng-touched')
+        //this.trainer = $$('[placeholder="Trainer"]').get(0)
         
-
         this.selectorsForm = $$('div.grouped select.ng-invalid')
         // selectors: 0-regions, 1-FST, 2-style, 3-age, 4-year
 
@@ -44,7 +42,7 @@ export class CreateSportsman {
     
         for(let i = 0; i < listCount; i++) {
           
-          let list = lists.get(0)
+          let list = await lists.get(0)
           await list.click()
           
           let options = list.$$('option')
@@ -58,6 +56,7 @@ export class CreateSportsman {
     }
 
     async optionSelector(selector) {
+      await selector.click()
       let options = selector.$$('option')
       let optionCount = await options.count() - 1
       

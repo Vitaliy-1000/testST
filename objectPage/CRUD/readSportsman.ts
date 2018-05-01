@@ -6,6 +6,7 @@ export class ReadSportsman {
     addNew: ElementFinder;
     selectNumber: ElementFinder;
     table: ElementFinder;
+    tableRow: ElementFinder;
 
     constructor() {
         this.inputSearch = $('[ng-model="searchFor"]')
@@ -13,6 +14,7 @@ export class ReadSportsman {
         this.addNew = $('[ng-click = "newWrestler()"]')
         this.selectNumber = $('.form-control.p-2.ng-pristine.ng-untouched.ng-valid')
         this.table = $('.table.table-striped.table-hover')
+        this.tableRow = $('tr.ng-scope')
     }
 
     async arePresent() {
@@ -29,11 +31,24 @@ export class ReadSportsman {
     }
 
     async seachSp(userLastName){
-        let EC = await protractor.ExpectedConditions;
-
-        
         await this.inputSearch.sendKeys(userLastName);
-        await browser.wait(EC.visibilityOf(this.buttonSearch), 5000);
         await this.buttonSearch.click()
     }
+
+    async seachText(text) {
+        let td = await this.tableRow.$$('td').get(1).getText()
+        //await console.log(await td)
+        let regT = new RegExp(text, 'ig')
+        //await console.log( await a)
+        let boolText = await regT.test(td)
+        return boolText
+        // await console.log(await b)
+        // let textBoolean = await td.indexOf(text)
+        // if (textBoolean <= 0) {
+        //     return true
+        // } else {
+        //     return false
+        // }
+    }
+
 }
