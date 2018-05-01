@@ -51,7 +51,7 @@ describe('testST page', function(){
     //     await
     // });
 
-/*
+
     it('create',async function(){
         await readSportsman.addNew.click();
         
@@ -61,22 +61,26 @@ describe('testST page', function(){
     
         await createSportsman.buttonDone.click()
 
-        expect(await panelPrimary.areDisplayed(panelPrimary.panels)).toEqual(true)
-        
-        await browser.waitForAngular()
         await panelPrimary.closeIt.click()
     })
-*/  /*
+  
     it('read', async function(){
-        await readSportsman.seachSp('орпоа')
+        await readSportsman.seachSp(newSportsman.lastName)
 
-        expect(await readSportsman.seachText('орпоа')).toEqual(true)
+        await browser.sleep(2000)
+        //expect(await readSportsman.seachText(newSportsman.lastName)).toEqual(true)
 
     })
-*/
+/*
     it('update', async function(){
         await readSportsman.seachSp('орпоа')
+        await updateSportsman.tableRow.click()
 
-        await updateSportsman.updateSp()
-    })
+        expect(await panelPrimary.areDisplayed(panelPrimary.panels)).toEqual(true)
+        
+        await updateSportsman.updateSp(updateSportsman.selectRegion)
+        await updateSportsman.updateSp(updateSportsman.selectFST)
+        await updateSportsman.buttonUpDone.click()
+        await browser.sleep(1500)
+    })*/
 })

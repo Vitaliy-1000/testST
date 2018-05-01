@@ -33,7 +33,7 @@ export class CreateSportsman {
 
         this.card = $('div.grouped select.ng-pristine')
 
-        this.buttonDone = $('button.btn.btn-lg.btn-success')
+        this.buttonDone = $$('div.button').get(0)
       }
 
     async chooseOption(selectors){
