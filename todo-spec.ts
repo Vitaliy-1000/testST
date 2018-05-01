@@ -63,7 +63,7 @@ describe('testST page', function(){
 
         await panelPrimary.closeIt.click()
     })
-  
+/*  
     it('read', async function(){
         await readSportsman.seachSp(newSportsman.lastName)
 
