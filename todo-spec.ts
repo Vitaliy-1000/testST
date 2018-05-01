@@ -2,15 +2,17 @@ import { browser, element, by, protractor, $ } from 'protractor';
 
 import { LoginPage } from './objectPage/loginPage';
 import { CreateSportsman } from './objectPage/CRUD/createSportsman';
-import { PanelPrimary } from './objectPage/CRUD/panelPrimary';
+import { PanelPrimary } from './objectPage/panelPrimary';
 import { ReadSportsman } from './objectPage/CRUD/readSportsman';
 import { UpdateSportsman } from './objectPage/CRUD/updateSportsman';
+import { DeleteSportsman } from './objectPage/CRUD/deleteSportsman';
 
 const loginPage = new LoginPage();
 const createSportsman = new CreateSportsman();
 const panelPrimary = new PanelPrimary();
 const readSportsman = new ReadSportsman();
 const updateSportsman = new UpdateSportsman();
+const deleteSportsman = new DeleteSportsman();
 
 const user = {
     login: 'auto',
@@ -21,8 +23,16 @@ const newSportsman = {
     lastName: 'лрпр',
     firstName: 'овпов',
     birth: '01-20-1998',
-    middleName: 'впово',
+    middleName: 'впово'
     //trainer: 'dan'
+}
+
+
+const fake = {
+    lastName: 'орпоа',
+    firstName: 'прлрпл',
+    birth: '10-12-2000',
+    middleName: 'аыпо'
 }
 
 
@@ -61,19 +71,19 @@ describe('testST page', function(){
     
         await createSportsman.buttonDone.click()
 
-        await panelPrimary.closeIt.click()
+        await browser.takeScreenshot()
+
+        //await panelPrimary.closeIt.click()
     })
-/*  
+  
     it('read', async function(){
-        await readSportsman.seachSp(newSportsman.lastName)
-
-        await browser.sleep(2000)
-        //expect(await readSportsman.seachText(newSportsman.lastName)).toEqual(true)
-
+        await readSportsman.seachSp('орпоа')    //newSportsman.lastName
+        expect(await readSportsman.seachText('орпоа')).toEqual(true)    //newSportsman.lastName
+        await browser.takeScreenshot()
     })
-/*
+
     it('update', async function(){
-        await readSportsman.seachSp('орпоа')
+        await readSportsman.seachSp('орпоа') //newSportsman.lastName
         await updateSportsman.tableRow.click()
 
         expect(await panelPrimary.areDisplayed(panelPrimary.panels)).toEqual(true)
@@ -81,6 +91,24 @@ describe('testST page', function(){
         await updateSportsman.updateSp(updateSportsman.selectRegion)
         await updateSportsman.updateSp(updateSportsman.selectFST)
         await updateSportsman.buttonUpDone.click()
+        
+        await browser.takeScreenshot()
+    })
+
+    it('delete', async function(){
+        await readSportsman.seachSp('орпоа')    //newSportsman.lastName
+        await updateSportsman.tableRow.click()
         await browser.sleep(1500)
-    })*/
+        let boolText = await deleteSportsman.seachDeleteSportsman(fake, createSportsman)     //newSportsman
+        
+        await deleteSportsman.delSp(boolText)
+
+        await readSportsman.seachSp('орпоа')     //newSportsman.lastName
+        
+        await browser.sleep(1500)
+
+        expect(await deleteSportsman.notFind(readSportsman.tableRow)).toEqual(true)
+        
+        await browser.takeScreenshot()
+    })
 })
