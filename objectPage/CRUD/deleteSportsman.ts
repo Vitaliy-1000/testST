@@ -41,7 +41,6 @@ export class DeleteSportsman {
         if( boolSpMan == true){
             await this.buttonRed.click()
             await this.deleteOk.click()
-            await console.log('ok')
         }    
     }
 
